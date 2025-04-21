@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha's 19th Birthday Celebration</title>
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    body {
+      color: #F5F5F5;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #2A1B3D 0%, #4B2E83 100%);
+      position: relative;
+    }
+    
+    /* Starry Background */
+    .starry-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%),
+                  url('https://i.imgur.com/starfield.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+      z-index: -1;
+      animation: twinkle 12s infinite ease-in-out;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.35; }
+    }
+    
+    /* Password Screen */
+    .password-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(74, 58, 112, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      color: #F5F5F5;
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+    
+    .password-screen h1 {
+      margin-bottom: 20px;
+      font-size: 2.8rem;
+      text-shadow: 0 0 12px rgba(255, 173, 204, 0.6);
+      font-weight: 700;
+    }
+    
+    .password-screen p {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      opacity: 0.9;
+    }
+    
+    .password-screen input {
+      padding: 15px 25px;
+      border: 2px solid #A78BFA;
+      border-radius: 50px;
+      margin: 20px 0;
+      font-size: 1.2rem;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      color: #F5F5F5;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    
+    .password-screen input:focus {
+      border-color: #FF8AC6;
+      box-shadow: 0 0 12px rgba(255, 138, 198, 0.4);
+    }
+    
+    .password-screen button {
+      background: linear-gradient(45deg, #FF8AC6, #A78BFA);
+      color: #1F1A44;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .password-screen button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(255, 138, 198, 0.5);
+    }
+    
+    /* Birthday Animation Page */
+    .birthday-page {
+      display: none;
+      position: relative;
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+    
+    .birthday-content {
+      background: rgba(74, 58, 112, 0.35);
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+      max-width: 600px;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    
+    .birthday-title {
+      font-size: 3.2rem;
+      color: #F5F5F5;
+      margin-bottom: 20px;
+      text-shadow: 0 0 12px rgba(255, 173, 204, 0.6);
+      font-weight: 700;
+    }
+    
+    .age-number {
+      font-size: 5.5rem;
+      color: #FF8AC6;
+      margin: 20px 0;
+      text-shadow: 0 0 15px rgba(255, 138, 198, 0.6);
+      font-weight: 800;
+    }
+    
+    .cake-container {
+      position: relative;
+      margin: 30px 0;
+    }
+    
+    .cake {
+      font-size: 150px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 15px rgba(255, 138, 198, 0.6));
+    }
+    
+    .cake:hover {
+      transform: scale(1.1);
+    }
+    
+    .instructions {
+      margin-top: 20px;
+      font-size: 1.3rem;
+      color: #A78BFA;
+      font-style: italic;
+      text-shadow: 0 0 5px rgba(167, 139, 250, 0.5);
+    }
+    
+    /* Birthday Message Page */
+    .message-page {
+      display: none;
+      position: relative;
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+    
+    .message-card {
+      background: rgba(167, 139, 250, 0.25);
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      animation: fadeIn 1s ease-out;
+    }
+    
+    .message-title {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      color: #F5F5F5;
+      font-weight: 700;
+      text-shadow: 0 0 12px rgba(255, 173, 204, 0.6);
+    }
+    
+    .message-text {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      text-align: center;
+      color: #F5F5F5;
+      line-height: 1.6;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+    }
+    
+    .signature {
+      font-style: italic;
+      font-size: 1.3rem;
+      margin-top: 30px;
+      color: #FF8AC6;
+      font-weight: 600;
+      text-shadow: 0 0 5px rgba(255, 138, 198, 0.5);
+    }
+    
+    .heart {
+      color: #FF8AC6;
+      Kira: font-size: 1.5rem;
+      display: inline-block;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .next-btn {
+      background: linear-gradient(45deg, #FF8AC6, #A78BFA);
+      color: #1F1A44;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      margin-top: 20px;
+    }
+    
+    .next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(255, 138, 198, 0.5);
+    }
+    
+    /* One Question Feature */
+    .question-page {
+      display: none;
+      position: relative;
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+    
+    .question-card {
+      background: rgba(74, 58, 112, 0.35);
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      animation: fadeIn 1s ease-out;
+    }
+    
+    .question-title {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: #FF8AC6;
+      font-weight: 700;
+      text-shadow: 0 0 12px rgba(255, 138, 198, 0.6);
+    }
+    
+    .question-intro {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      color: #F5F5F5;
+      opacity: 0.9;
+    }
+    
+    .question-choices {
+      margin: 20px 0;
+    }
+    
+    .question-btn {
+      margin: 12px auto;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(45deg, #A78BFA, #D4A5F8);
+      color: #1F1A44;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: block;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .question-btn:hover {
+      background: linear-gradient(45deg, #FF8AC6, #A78BFA);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(255, 138, 198, 0.5);
+    }
+    
+    .question-answer {
+      margin-top: 30px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      display: none;
+      color: #F5F5F5;
+      opacity: 0.9;
+    }
+    
+    .question-display {
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      color: #FF8AC6;
+    }
+    
+    /* Balloons */
+    .balloon {
+      position: absolute;
+      width: 60px;
+      height: 80px;
+      border-radius: 50%;
+      animation: float linear infinite;
+      z-index: 1;
+      opacity: 0;
+    }
+    
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 30px;
+      width: 2px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+    
+    /* Fireworks */
+    .firework {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      animation: explode 1s ease-out infinite;
+      z-index: 1;
+      opacity: 0;
+    }
+    
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background-color: #FF8AC6;
+      animation: confetti-fall linear infinite;
+      z-index: 1;
+      opacity: 0;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      to {
+        transform: translateY(-100vh);
+      }
+    }
+    
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(20);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Quiz Game Styles */
+    .quiz-page {
+      display: none;
+      position: relative;
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+    
+    .quiz-container {
+      background: rgba(167, 139, 250, 0.25);
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      animation: fadeIn 1s ease-out;
+    }
+    
+    /* Quiz Game Specific Styles */
+    .quiz-h1, .quiz-h2, .quiz-h3 {
+      color: #FF8AC6;
+      margin-bottom: 20px;
+      text-shadow: 0 0 12px rgba(255, 138, 198, 0.6);
+    }
+    
+    .quiz-h1 {
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+    }
+    
+    .quiz-h2 {
+      font-size: 1.8rem;
+    }
+    
+    .preference-card {
+      margin-bottom: 30px;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .preference-question {
+      font-size: clamp(1.1rem, 4vw, 1.5rem);
+      margin-bottom: 20px;
+      color: #F5F5F5;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+    }
+    
+    .quiz-options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .quiz-option {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 15px;
+      min-width: 120px;
+      flex: 1 1 40%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      color: #F5F5F5;
+    }
+    
+    .quiz-option:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(255, 138, 198, 0.5);
+    }
+    
+    .quiz-option.selected {
+      background: rgba(255, 138, 198, 0.4);
+      color: #F5F5F5;
+      border-color: #FF8AC6;
+    }
+    
+    .quiz-option.correct {
+      background: rgba(129, 201, 149, 0.4);
+      border-color: #81C995;
+    }
+    
+    .quiz-option.incorrect {
+      background: rgba(255, 99, 71, 0.4);
+      border-color: #FF6347;
+    }
+    
+    .quiz-btn {
+      background: linear-gradient(45deg, #FF8AC6, #A78BFA);
+      color: #1F1A44;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px;
+      font-weight: 600;
+    }
+    
+    .quiz-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 138, 198, 0.5);
+    }
+    
+    .quiz-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .progress-container {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+    
+    .progress-bar {
+      height: 10px;
+      border-radius: 12px;
+      background: linear-gradient(45deg, #FF8AC6, #A78BFA);
+      transition: width 0.4s ease;
+    }
+    
+    .progress-text {
+      font-weight: bold;
+      color: #F5F5F5;
+      margin-bottom: 5px;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+    }
+    
+    .quiz-result-container {
+      display: none;
+    }
+    
+    .quiz-score {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      color: #FF8AC6;
+      margin: 20px 0;
+      text-shadow: 0 0 12px rgba(255, 138, 198, 0.6);
+    }
+    
+    .quiz-feedback {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      line-height: 1.6;
+      margin-bottom: 30px;
+      color: #F5F5F5;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+    }
+    
+    .quiz-celebration {
+      font-size: clamp(3rem, 10vw, 5rem);
+      margin: 20px 0;
+      animation: bounce 1s infinite alternate;
+    }
+    
+    .quiz-emoji-option {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      margin-bottom: 10px;
+    }
+    
+    .quiz-result-section {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      text-align: left;
+      color: #F5F5F5;
+    }
+    
+    .quiz-result-title {
+      font-size: clamp(1.1rem, 3vw, 1.3rem);
+      color: #FF8AC6;
+      margin-bottom: 10px;
+    }
+    
+    .quiz-actual-answer {
+      font-weight: bold;
+      color: #FF8AC6;
+      margin-top: 10px;
+    }
+    
+    .quiz-user-choice {
+      font-weight: bold;
+    }
+    
+    .quiz-user-choice.correct {
+      color: #81C995;
+    }
+    
+    .quiz-user-choice.incorrect {
+      color: #FF6347;
+    }
+    
+    .quiz-loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #F5F5F5;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-20px); }
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Form Page Styles */
+    .form-page {
+      display: none;
+      position: relative;
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+    
+    .form-container {
+      background: rgba(74, 58, 112, 0.35);
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      animation: fadeIn 1s ease-out;
+    }
+    
+    .form-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #FF8AC6;
+      font-weight: 700;
+      text-shadow: 0 0 12px rgba(255, 138, 198, 0.6);
+    }
+    
+    .form-message {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #F5F5F5;
+      line-height: 1.6;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+    }
+    
+    .form-iframe {
+      width: 100%;
+      min-height: 500px;
+      border: none;
+      border-radius: 12px;
+      margin: 20px 0;
+      background: #fff;
+    }
+    
+    .form-complete-message {
+      display: none;
+      font-size: 1.2rem;
+      margin-top: 30px;
+      color: #F5F5F5;
+      line-height: 1.6;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .birthday-title, .message-title {
+        font-size: 2rem;
+      }
+      
+      .age-number {
+        font-size: 3.5rem;
+      }
+      
+      .cake {
+        font-size: 100px;
+      }
+      
+      .birthday-content, .message-card, .question-card, .quiz-container, .form-container {
+        padding: 20px;
+        width: 90%;
+      }
+      
+      .message-text, .question-answer, .form-message {
+        font-size: 1.1rem;
+      }
+      
+      .question-title, .form-title {
+        font-size: 1.5rem;
+      }
+      
+      .form-iframe {
+        min-height: 400px;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Starry Background -->
+  <div class="starry-background"></div>
+  
+  <!-- Password Screen -->
+  <div class="password-screen" id="passwordScreen">
+    <h1>Minha's 19th Birthday</h1>
+    <p>Enter the secret password to unlock the celebration</p>
+    <input type="password" id="passwordInput" placeholder="Enter the password">
+    <button onclick="checkPassword()">Unlock Celebration</button>
+  </div>
+  
+  <!-- Birthday Animation Page -->
+  <div class="birthday-page" id="birthdayPage">
+    <div class="birthday-content">
+      <h1 class="birthday-title">Happy Birthday Minha!</h1>
+      <div class="age-number">19</div>
+      <div class="cake-container">
+        <div class="cake" id="birthdayCake">🎂</div>
+        <p class="instructions">Click for fun! 🎊</p>
+      </div>
+    </div>
+    
+    <!-- Custom birthday song -->
+    <audio id="birthdaySong" preload="auto">
+      <source src="https://github.com/hamzakazmi26/birthday_music/raw/refs/heads/main/birthday_song.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+  
+  <!-- Birthday Message Page -->
+  <div class="message-page" id="messagePage">
+    <div class="message-card">
+      <h1 class="message-title">🎉 Happy 19th Birthday, Minha</h1>
+      
+      <div class="message-text">
+        <p>Happy birthday to the one who makes me want to be a better version of myself,</p>
+        <p>Happy birthday to the one who always knows how to make me laugh.</p>
+        <br>
+        <p>Tayyaba u may not realize it, but ur the one of the biggest reasons I'm trying to work harder, trying to stay more focused, and take my future seriously.</p>
+        <br>
+        <p>On this special day, I pray that your's every dream comes true.</p>
+        <p>May this year brings u endless joy.</p>
+        <p>May god bless u with the strength to face every challenge in life.</p>
+        <p>May u receive everything ur heart desires.</p>
+        <p>May Allah bless u with endless happiness and may ur parents always be proud of u.</p>
+      </div>
+      
+      <div class="signature">
+        From the one who whispers your name in prayers,<br>
+        Hamza Ali
+      </div>
+      
+      <button class="next-btn" onclick="showQuestionPage()">Discover One Truth About Me</button>
+    </div>
+  </div>
+
+  <!-- One Question Page -->
+  <div class="question-page" id="questionPage">
+    <div class="question-card">
+      <h2 class="question-title">Your One & Only Question 💖</h2>
+      <p class="question-intro" id="questionIntro">You may open only one truth about me. The rest will be lost forever.</p>
+      
+      <div class="question-choices" id="questionChoices">
+        <button class="question-btn" onclick="revealQuestion('q1')">🌹 The most important principle in my life?</button>
+        <button class="question-btn" onclick="revealQuestion('q2')">🌟 If I could go back in the past, what is the one moment in life that I would want to live again?</button>
+        <button class="question-btn" onclick="revealQuestion('q3')">🕰️ The biggest lesson I have learned from life so far?</button>
+      </div>
+      
+      <div class="question-answer" id="questionAnswer">
+        <p id="displayAnswer"></p>
+      </div>
+      <button class="next-btn" onclick="showQuizPage()">Take Our Compatibility Quiz</button>
+      <button class="next-btn" onclick="showFormPage()">Let Me Know What U Think</button>
+    </div>
+  </div>
+
+  <!-- Quiz Page -->
+  <div class="quiz-page" id="quizPage">
+    <div class="quiz-container">
+      <div id="quiz-intro">
+        <h1 class="quiz-h1">Panda 🐼 & Minha's 👧 Preferences Game</h1>
+        <p class="quiz-feedback">First guess Panda's preferences, then we'll see how well Panda knows yours!</p>
+        <button class="quiz-btn" id="quiz-startBtn">Start with Panda's Preferences</button>
+      </div>
+      
+      <div id="quiz-his-game" style="display:none;">
+        <div class="progress-text">Question <span id="quiz-his-question-number">1</span> of <span id="quiz-his-total-questions">10</span> (About Panda)</div>
+        <div class="progress-container">
+          <div class="progress-bar" id="quiz-his-progress-bar"></div>
+        </div>
+        <div class="preference-card">
+          <h2 class="preference-question" id="quiz-his-question"></h2>
+          <div class="quiz-options" id="quiz-his-options"></div>
+        </div>
+        <button class="quiz-btn" id="quiz-his-nextBtn" disabled>Next <span class="quiz-loading" style="display:none;"></span></button>
+      </div>
+      
+      <div id="quiz-his-result" class="quiz-result-container">
+        <div class="quiz-celebration">🐼</div>
+        <h2 class="quiz-h2">Panda's Preferences Results</h2>
+        <div class="quiz-score" id="quiz-his-score"></div>
+        <div class="quiz-feedback" id="quiz-his-feedback"></div>
+        
+        <div id="quiz-his-answers-container"></div>
+        
+        <button class="quiz-btn" id="quiz-continueBtn">Continue</button>
+      </div>
+      
+      <div id="quiz-her-game" style="display:none;">
+        <div class="progress-text">Question <span id="quiz-her-question-number">1</span> of <span id="quiz-her-total-questions">10</span> (About Minha)</div>
+        <div class="progress-container">
+          <div class="progress-bar" id="quiz-her-progress-bar"></div>
+        </div>
+        <div class="preference-card">
+          <h2 class="preference-question" id="quiz-her-question"></h2>
+          <div class="quiz-options" id="quiz-her-options"></div>
+        </div>
+        <button class="quiz-btn" id="quiz-her-nextBtn" disabled>Next <span class="quiz-loading" style="display:none;"></span></button>
+      </div>
+      
+      <div id="quiz-her-result" class="quiz-result-container">
+        <div class="quiz-celebration">👧</div>
+        <h2 class="quiz-h2">Minha's Preferences Results</h2>
+        <div class="quiz-score" id="quiz-her-score"></div>
+        <div class="quiz-feedback" id="quiz-her-feedback"></div>
+        
+        <div id="quiz-her-answers-container"></div>
+        
+        <button class="quiz-btn" id="quiz-restartBtn">Play Again</button>
+        <button class="quiz-btn" id="quiz-formBtn">Let Me Know What U Think</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Page -->
+  <div class="form-page" id="formPage">
+    <div class="form-container">
+      <h1 class="form-title">Let Me Know What U Think 🐼</h1>
+      <p class="form-message">
+        Just a few quick questions.<br>
+      </p>
+      
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdzKbj3w4v64_WKlsMrP9GqhwSZrbbg7VnF8tTBDv15oXZeNA/viewform?embedded=true" 
+              class="form-iframe" 
+              id="googleForm"
+              frameborder="0" 
+              marginheight="0" 
+              marginwidth="0">
+        Loading…
+      </iframe>
+      
+      <p class="form-complete-message" id="formCompleteMessage">
+        Thank you for completing the form! ❤️<br><br>
+        This was a tiny surprise for you, from Panda 🐼 — hope it brought a smile!<br><br>
+        Forever by your side! 🐼💖
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Password Protection
+    function checkPassword() {
+      const passwords = ["minha22"];
+      const input = document.getElementById('passwordInput').value.toLowerCase();
+      
+      if (passwords.includes(input)) {
+        document.getElementById('passwordScreen').style.display = 'none';
+        document.getElementById('birthdayPage').style.display = 'flex';
+      } else {
+        alert("Oops! That's not the right password. Try again!");
+        document.getElementById('passwordInput').value = '';
+      }
+    }
+    
+    // Allow pressing Enter to submit password
+    document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+    
+    // Cake Interaction
+    const cake = document.getElementById('birthdayCake');
+    const birthdaySong = document.getElementById('birthdaySong');
+    
+    cake.addEventListener('click', function() {
+      // Start music
+      birthdaySong.volume = 0.7;
+      birthdaySong.play().catch(e => console.log("Audio play failed:", e));
+      
+      // Create balloons
+      createBalloons();
+      
+      // Create fireworks
+      createFireworks();
+      
+      // Create confetti
+      createConfetti();
+      
+      // Make cake bigger
+      cake.style.transform = 'scale(1.2)';
+      cake.style.transition = 'transform 0.5s';
+      
+      // Change instruction text
+      document.querySelector('.instructions').textContent = "Happy 19th! 🎂";
+      
+      // After 18 seconds, transition to message page
+      setTimeout(() => {
+        document.getElementById('birthdayPage').style.display = 'none';
+        document.getElementById('messagePage').style.display = 'flex';
+      }, 18000);
+    });
+    
+    // Show question page
+    function showQuestionPage() {
+      document.getElementById('messagePage').style.display = 'none';
+      document.getElementById('questionPage').style.display = 'flex';
+      
+      const saved = localStorage.getItem("chosen_question");
+      if (saved && questionAnswers[saved]) {
+        showQuestionAnswer(saved);
+      }
+    }
+    
+    // Show quiz page
+    function showQuizPage() {
+      document.getElementById('messagePage').style.display = 'none';
+      document.getElementById('questionPage').style.display = 'none';
+      document.getElementById('quizPage').style.display = 'flex';
+      
+      resetQuizGame();
+    }
+    
+    // Show form page
+    function showFormPage() {
+      document.getElementById('quizPage').style.display = 'none';
+      document.getElementById('messagePage').style.display = 'none';
+      document.getElementById('questionPage').style.display = 'none';
+      document.getElementById('formPage').style.display = 'flex';
+      
+      checkFormSubmission();
+    }
+    
+    // Balloon Creation
+    function createBalloons() {
+      const colors = ['#FF8AC6', '#A78BFA', '#D4A5F8', '#F5F5F5'];
+      
+      for (let i = 0; i < 25; i++) {
+        setTimeout(() => {
+          const balloon = document.createElement('div');
+          balloon.className = 'balloon';
+          balloon.style.left = Math.random() * 100 + 'vw';
+          balloon.style.bottom = '-100px';
+          balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          balloon.style.animationDuration = Math.random() * 10 + 10 + 's';
+          balloon.style.animationDelay = Math.random() * 3 + 's';
+          balloon.style.opacity = '1';
+          document.body.appendChild(balloon);
+          
+          setTimeout(() => balloon.remove(), 15000);
+        }, i * 300);
+      }
+    }
+    
+    // Firework Creation
+    function createFireworks() {
+      for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+          const firework = document.createElement('div');
+          firework.className = 'firework';
+          firework.style.left = Math.random() * 100 + 'vw';
+          firework.style.top = Math.random() * 100 + 'vh';
+          firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+          firework.style.animationDuration = Math.random() * 0.5 + 0.5 + 's';
+          firework.style.opacity = '1';
+          document.body.appendChild(firework);
+          
+          setTimeout(() => firework.remove(), 1000);
+        }, i * 500);
+      }
+    }
+    
+    // Confetti Creation
+    function createConfetti() {
+      const colors = ['#FF8AC6', '#A78BFA', '#D4A5F8', '#F5F5F5'];
+      const shapes = ['square', 'rectangle', 'circle'];
+      
+      for (let i = 0; i < 200; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.top = '-20px';
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+          confetti.style.animationDelay = Math.random() * 2 + 's';
+          confetti.style.opacity = '1';
+          
+          const shape = shapes[Math.floor(Math.random() * shapes.length)];
+          if (shape === 'circle') {
+            confetti.style.borderRadius = '50%';
+          } else if (shape === 'rectangle') {
+            confetti.style.width = '10px';
+            confetti.style.height = '20px';
+          }
+          
+          document.body.appendChild(confetti);
+          
+          setTimeout(() => confetti.remove(), 5000);
+        }, i * 20);
+      }
+    }
+    
+    // One Question Feature
+    const questionAnswers = {
+      q1: "Honesty is the most important principle in my life. I never tell lies, and I also expect the same honesty from others.",
+      q2: "I would love to relive every moment in the past when my parents felt proud and happy because of me. It has happened a few times, like when I scored 1017 marks in my matric exams and when used to come first in early classes. But I feel like I haven't done anything yet that truly makes my parents proud. I want to achieve great things in the future, not just for my parents, but also for you",
+      q3: "The biggest lesson I've learned so far is that a person learns more from experience than from advice."
+    };
+
+    const questionTexts = {
+      q1: "The most important principle in my life?",
+      q2: "If I could go back in the past, what is the one moment in life that I would want to live again?",
+      q3: "The biggest lesson I have learned from life so far?"
+    };
+
+    function revealQuestion(key) {
+      localStorage.setItem("chosen_question", key);
+      showQuestionAnswer(key);
+    }
+
+    function showQuestionAnswer(key) {
+      document.getElementById('questionChoices').style.display = 'none';
+      document.getElementById('questionIntro').textContent = "You chose to know:";
+      document.getElementById('displayAnswer').innerHTML = `<strong>${questionTexts[key]}</strong><br><br>${questionAnswers[key]}`;
+      document.getElementById('questionAnswer').style.display = 'block';
+    }
+    
+    // Quiz Game Feature
+    const quizGameData = {
+      panda: {
+        name: "Panda",
+        emoji: "🐼",
+        preferences: [
+          { 
+            question: "Which do I prefer?",
+            options: [
+              { emoji: "☕", text: "Coffee" },
+              { emoji: "🍵", text: "Tea" }
+            ],
+            answer: 1
+          },
+          { 
+            question: "Which pets do I prefer?",
+            options: [
+              { emoji: "🐶", text: "Dogs" },
+              { emoji: "🐱", text: "Cats" }
+            ],
+            answer: 0
+          },
+          { 
+            question: "When am I more productive?",
+            options: [
+              { emoji: "🌞", text: "Morning" },
+              { emoji: "🌙", text: "Night" }
+            ],
+            answer: 0
+          },
+          { 
+            question: "Which social media do I prefer?",
+            options: [
+              { emoji: "📸", text: "Instagram" },
+              { emoji: "👻", text: "Snapchat" }
+            ],
+            answer: 0
+          },
+          { 
+            question: "Which food do I prefer?",
+            options: [
+              { emoji: "🍕", text: "Pizza" },
+              { emoji: "🍔", text: "Burgers" }
+            ],
+            answer: 1
+          },
+          { 
+            question: "Which ice cream flavor do I prefer?",
+            options: [
+              { emoji: "🍫", text: "Chocolate" },
+              { emoji: "🍓", text: "Strawberry" }
+            ],
+            answer: 0
+          },
+          { 
+            question: "Which weather do I prefer?",
+            options: [
+              { emoji: "🌧️", text: "Rain" },
+              { emoji: "☀️", text: "Sun" }
+            ],
+            answer: 0
+          },
+          { 
+            question: "Which season do I prefer?",
+            options: [
+              { emoji: "⛄", text: "Winter" },
+              { emoji: "🏖️", text: "Summer" }
+            ],
+            answer: 1
+          },
+          { 
+            question: "Which do I prefer to watch?",
+            options: [
+              { emoji: "🌅", text: "Sunrise" },
+              { emoji: "🌇", text: "Sunset" }
+            ],
+            answer: 0
+          },
+          { 
+            question: "Which vacation spot do I prefer?",
+            options: [
+              { emoji: "⛰️", text: "Mountains" },
+              { emoji: "🏖️", text: "Beach" }
+            ],
+            answer: 0
+          }
+        ]
+      },
+      minha: {
+        name: "Minha",
+        emoji: "👧",
+        preferences: [
+          { 
+            question: "Which do you prefer?",
+            options: [
+              { emoji: "☕", text: "Coffee" },
+              { emoji: "🍵", text: "Tea" }
+            ],
+            answer: 1,
+            pandaGuess: 1
+          },
+          { 
+            question: "Which pets do you prefer?",
+            options: [
+              { emoji: "🐶", text: "Dogs" },
+              { emoji: "🐱", text: "Cats" }
+            ],
+            answer: 1,
+            pandaGuess: 1
+          },
+          { 
+            question: "When are you more productive?",
+            options: [
+              { emoji: "🌞", text: "Morning" },
+              { emoji: "🌙", text: "Night" }
+            ],
+            answer: 1,
+            pandaGuess: 1
+          },
+          { 
+            question: "Which social media do you prefer?",
+            options: [
+              { emoji: "📸", text: "Instagram" },
+              { emoji: "👻", text: "Snapchat" }
+            ],
+            answer: 0,
+            pandaGuess: 0
+          },
+          { 
+            question: "Which food do you prefer?",
+            options: [
+              { emoji: "🍕", text: "Pizza" },
+              { emoji: "🍔", text: "Burgers" }
+            ],
+            answer: 0,
+            pandaGuess: 0
+          },
+          { 
+            question: "Which ice cream flavor do you prefer?",
+            options: [
+              { emoji: "🍫", text: "Chocolate" },
+              { emoji: "🍓", text: "Strawberry" }
+            ],
+            answer: 1,
+            pandaGuess: 1
+          },
+          { 
+            question: "Which weather do you prefer?",
+            options: [
+              { emoji: "🌧️", text: "Rain" },
+              { emoji: "☀️", text: "Sun" }
+            ],
+            answer: 0,
+            pandaGuess: 0
+          },
+          { 
+            question: "Which season do you prefer?",
+            options: [
+              { emoji: "⛄", text: "Winter" },
+              { emoji: "🏖️", text: "Summer" }
+            ],
+            answer: 0,
+            pandaGuess: 0
+          },
+          { 
+            question: "Which do you prefer to watch?",
+            options: [
+              { emoji: "🌅", text: "Sunrise" },
+              { emoji: "🌇", text: "Sunset" }
+            ],
+            answer: 1,
+            pandaGuess: 1
+          },
+          { 
+            question: "Which vacation spot do you prefer?",
+            options: [
+              { emoji: "⛰️", text: "Mountains" },
+              { emoji: "🏖️", text: "Beach" }
+            ],
+            answer: 0,
+            pandaGuess: 0
+          }
+        ]
+      }
+    };
+
+    const quizGameState = {
+      currentPandaQuestion: 0,
+      currentMinhaQuestion: 0,
+      pandaScore: 0,
+      minhaScore: 0,
+      userPandaChoices: [],
+      userMinhaChoices: [],
+      gamePhase: 'intro'
+    };
+
+    const quizElements = {
+      intro: document.getElementById('quiz-intro'),
+      startBtn: document.getElementById('quiz-startBtn'),
+      pandaGame: document.getElementById('quiz-his-game'),
+      pandaQuestion: document.getElementById('quiz-his-question'),
+      pandaOptions: document.getElementById('quiz-his-options'),
+      pandaQuestionNumber: document.getElementById('quiz-his-question-number'),
+      pandaTotalQuestions: document.getElementById('quiz-his-total-questions'),
+      pandaProgressBar: document.getElementById('quiz-his-progress-bar'),
+      pandaNextBtn: document.getElementById('quiz-his-nextBtn'),
+      pandaResult: document.getElementById('quiz-his-result'),
+      pandaScore: document.getElementById('quiz-his-score'),
+      pandaFeedback: document.getElementById('quiz-his-feedback'),
+      pandaAnswersContainer: document.getElementById('quiz-his-answers-container'),
+      minhaGame: document.getElementById('quiz-her-game'),
+      minhaQuestion: document.getElementById('quiz-her-question'),
+      minhaOptions: document.getElementById('quiz-her-options'),
+      minhaQuestionNumber: document.getElementById('quiz-her-question-number'),
+      minhaTotalQuestions: document.getElementById('quiz-her-total-questions'),
+      minhaProgressBar: document.getElementById('quiz-her-progress-bar'),
+      minhaNextBtn: document.getElementById('quiz-her-nextBtn'),
+      minhaResult: document.getElementById('quiz-her-result'),
+      minhaScore: document.getElementById('quiz-her-score'),
+      minhaFeedback: document.getElementById('quiz-her-feedback'),
+      minhaAnswersContainer: document.getElementById('quiz-her-answers-container'),
+      continueBtn: document.getElementById('quiz-continueBtn'),
+      restartBtn: document.getElementById('quiz-restartBtn'),
+      formBtn: document.getElementById('quiz-formBtn')
+    };
+
+    function initQuizGame() {
+      quizElements.pandaTotalQuestions.textContent = quizGameData.panda.preferences.length;
+      quizElements.minhaTotalQuestions.textContent = quizGameData.minha.preferences.length;
+      
+      quizElements.startBtn.addEventListener('click', startPandaQuizGame);
+      quizElements.continueBtn.addEventListener('click', startMinhaQuizGame);
+      quizElements.restartBtn.addEventListener('click', resetQuizGame);
+      quizElements.formBtn.addEventListener('click', showFormPage);
+      
+      quizElements.pandaNextBtn.addEventListener('click', nextPandaQuizQuestion);
+      quizElements.minhaNextBtn.addEventListener('click', nextMinhaQuizQuestion);
+    }
+
+    function startPandaQuizGame() {
+      quizGameState.gamePhase = 'pandaGame';
+      
+      quizElements.intro.style.display = 'none';
+      quizElements.pandaGame.style.display = 'block';
+      quizGameState.currentPandaQuestion = 0;
+      quizGameState.pandaScore = 0;
+      quizGameState.userPandaChoices = [];
+      
+      showPandaQuizQuestion();
+    }
+
+    function showPandaQuizQuestion() {
+      const question = quizGameData.panda.preferences[quizGameState.currentPandaQuestion];
+      
+      quizElements.pandaQuestion.textContent = question.question;
+      quizElements.pandaQuestionNumber.textContent = quizGameState.currentPandaQuestion + 1;
+      
+      const progress = ((quizGameState.currentPandaQuestion) / quizGameData.panda.preferences.length) * 100;
+      quizElements.pandaProgressBar.style.width = `${progress}%`;
+      
+      quizElements.pandaOptions.innerHTML = '';
+      
+      question.options.forEach((option, index) => {
+        const optionEl = document.createElement('div');
+        optionEl.className = 'quiz-option';
+        optionEl.innerHTML = `
+          <div class="quiz-emoji-option">${option.emoji}</div>
+          <div>${option.text}</div>
+        `;
+        optionEl.addEventListener('click', () => selectPandaQuizOption(index));
+        quizElements.pandaOptions.appendChild(optionEl);
+      });
+      
+      quizElements.pandaNextBtn.disabled = true;
+      quizElements.pandaNextBtn.querySelector('.quiz-loading').style.display = 'none';
+    }
+
+    function selectPandaQuizOption(index) {
+      const options = quizElements.pandaOptions.querySelectorAll('.quiz-option');
+      
+      options.forEach(opt => {
+        opt.classList.remove('selected', 'correct', 'incorrect');
+      });
+      
+      options[index].classList.add('selected');
+      
+      quizGameState.userPandaChoices[quizGameState.currentPandaQuestion] = index;
+      
+      quizElements.pandaNextBtn.disabled = false;
+    }
+
+    function nextPandaQuizQuestion() {
+      quizElements.pandaNextBtn.disabled = true;
+      quizElements.pandaNextBtn.querySelector('.quiz-loading').style.display = 'inline-block';
+      
+      const currentQuestion = quizGameData.panda.preferences[quizGameState.currentPandaQuestion];
+      const userChoice = quizGameState.userPandaChoices[quizGameState.currentPandaQuestion];
+      
+      const options = quizElements.pandaOptions.querySelectorAll('.quiz-option');
+      options.forEach((opt, idx) => {
+        if (idx === currentQuestion.answer) {
+          opt.classList.add('correct');
+        } else if (idx === userChoice && idx !== currentQuestion.answer) {
+          opt.classList.add('incorrect');
+        }
+      });
+      
+      if (userChoice === currentQuestion.answer) {
+        quizGameState.pandaScore++;
+      }
+      
+      setTimeout(() => {
+        quizGameState.currentPandaQuestion++;
+        
+        if (quizGameState.currentPandaQuestion < quizGameData.panda.preferences.length) {
+          showPandaQuizQuestion();
+        } else {
+          showPandaQuizResults();
+        }
+      }, 1000);
+    }
+
+    function showPandaQuizResults() {
+      quizGameState.gamePhase = 'pandaResults';
+      
+      quizElements.pandaGame.style.display = 'none';
+      quizElements.pandaResult.style.display = 'block';
+      
+      const totalQuestions = quizGameData.panda.preferences.length;
+      const percentage = totalQuestions > 0 
+        ? Math.round((quizGameState.pandaScore / totalQuestions) * 100)
+        : 0;
+      
+      quizElements.pandaScore.textContent = `You got ${quizGameState.pandaScore} out of ${totalQuestions} correct (${percentage}%)`;
+      
+      let feedback = '';
+      if (percentage >= 90) {
+        feedback = `Wow! You know ${quizGameData.panda.name} like the back of your hand! ${quizGameData.panda.emoji}`;
+      } else if (percentage >= 70) {
+        feedback = `Great job! You're really tuned in to ${quizGameData.panda.name}'s preferences!`;
+      } else if (percentage >= 50) {
+        feedback = `Not bad! You know some things about ${quizGameData.panda.name}, but there's more to discover!`;
+      } else {
+        feedback = `Hmm... looks like you need to observe ${quizGameData.panda.name} more carefully!`;
+      }
+      
+      quizElements.pandaFeedback.textContent = feedback;
+      
+      quizElements.pandaAnswersContainer.innerHTML = `<h3>${quizGameData.panda.name}'s Actual Preferences:</h3>`;
+      
+      quizGameData.panda.preferences.forEach((q, i) => {
+        const userChoice = quizGameState.userPandaChoices[i];
+        const isCorrect = userChoice === q.answer;
+        
+        const div = document.createElement('div');
+        div.className = 'quiz-result-section';
+        div.innerHTML = `
+          <p><strong>${q.question}</strong></p>
+          <p>You chose: <span class="quiz-user-choice ${isCorrect ? 'correct' : 'incorrect'}">${q.options[userChoice].text}</span></p>
+          <p class="quiz-actual-answer">Correct answer: ${q.options[q.answer].text}</p>
+          <hr>
+        `;
+        quizElements.pandaAnswersContainer.appendChild(div);
+      });
+    }
+
+    function startMinhaQuizGame() {
+      quizGameState.gamePhase = 'minhaGame';
+      
+      quizElements.pandaResult.style.display = 'none';
+      quizElements.minhaGame.style.display = 'block';
+      quizGameState.currentMinhaQuestion = 0;
+      quizGameState.minhaScore = 0;
+      quizGameState.userMinhaChoices = [];
+      
+      showMinhaQuizQuestion();
+    }
+
+    function showMinhaQuizQuestion() {
+      const question = quizGameData.minha.preferences[quizGameState.currentMinhaQuestion];
+      
+      quizElements.minhaQuestion.textContent = question.question;
+      quizElements.minhaQuestionNumber.textContent = quizGameState.currentMinhaQuestion + 1;
+      
+      const progress = ((quizGameState.currentMinhaQuestion) / quizGameData.minha.preferences.length) * 100;
+      quizElements.minhaProgressBar.style.width = `${progress}%`;
+      
+      quizElements.minhaOptions.innerHTML = '';
+      
+      question.options.forEach((option, index) => {
+        const optionEl = document.createElement('div');
+        optionEl.className = 'quiz-option';
+        optionEl.innerHTML = `
+          <div class="quiz-emoji-option">${option.emoji}</div>
+          <div>${option.text}</div>
+        `;
+        optionEl.addEventListener('click', () => selectMinhaQuizOption(index));
+        quizElements.minhaOptions.appendChild(optionEl);
+      });
+      
+      quizElements.minhaNextBtn.disabled = true;
+      quizElements.minhaNextBtn.querySelector('.quiz-loading').style.display = 'none';
+    }
+
+    function selectMinhaQuizOption(index) {
+      const options = quizElements.minhaOptions.querySelectorAll('.quiz-option');
+      
+      options.forEach(opt => {
+        opt.classList.remove('selected', 'correct', 'incorrect');
+      });
+      
+      options[index].classList.add('selected');
+      
+      quizGameState.userMinhaChoices[quizGameState.currentMinhaQuestion] = index;
+      
+      quizElements.minhaNextBtn.disabled = false;
+    }
+
+    function nextMinhaQuizQuestion() {
+      quizElements.minhaNextBtn.disabled = true;
+      quizElements.minhaNextBtn.querySelector('.quiz-loading').style.display = 'inline-block';
+      
+      const currentQuestion = quizGameData.minha.preferences[quizGameState.currentMinhaQuestion];
+      const userChoice = quizGameState.userMinhaChoices[quizGameState.currentMinhaQuestion];
+      
+      if (userChoice === currentQuestion.pandaGuess) {
+        quizGameState.minhaScore++;
+      }
+      
+      const options = quizElements.minhaOptions.querySelectorAll('.quiz-option');
+      options.forEach((opt, idx) => {
+        if (idx === currentQuestion.answer) {
+          opt.classList.add('correct');
+        }
+        if (idx === userChoice && idx !== currentQuestion.answer) {
+          opt.classList.add('incorrect');
+        }
+      });
+      
+      setTimeout(() => {
+        quizGameState.currentMinhaQuestion++;
+        
+        if (quizGameState.currentMinhaQuestion < quizGameData.minha.preferences.length) {
+          showMinhaQuizQuestion();
+        } else {
+          showMinhaQuizResults();
+        }
+      }, 1000);
+    }
+
+    function showMinhaQuizResults() {
+      quizGameState.gamePhase = 'minhaResults';
+      
+      quizElements.minhaGame.style.display = 'none';
+      quizElements.minhaResult.style.display = 'block';
+      
+      const totalQuestions = quizGameData.minha.preferences.length;
+      const pandaCorrect = quizGameState.minhaScore;
+      const percentage = totalQuestions > 0 
+        ? Math.round((pandaCorrect / totalQuestions) * 100)
+        : 0;
+      
+      quizElements.minhaScore.textContent = `${quizGameData.panda.name} got ${pandaCorrect} out of ${totalQuestions} correct (${percentage}%)`;
+      
+      let feedback = '';
+      if (percentage >= 90) {
+        feedback = `Amazing! ${quizGameData.panda.name} knows you inside out! ${quizGameData.minha.emoji}`;
+      } else if (percentage >= 70) {
+        feedback = `Good job! ${quizGameData.panda.name} pays good attention to your preferences!`;
+      } else if (percentage >= 50) {
+        feedback = `${quizGameData.panda.name} knows some things about you, but could be more observant!`;
+      } else {
+        feedback = `${quizGameData.panda.name} might need to listen more carefully to you!`;
+      }
+      
+      quizElements.minhaFeedback.textContent = feedback;
+      
+      quizElements.minhaAnswersContainer.innerHTML = `<h3>${quizGameData.minha.name}'s Preferences vs ${quizGameData.panda.name}'s Guesses:</h3>`;
+      
+      quizGameData.minha.preferences.forEach((q, i) => {
+        const userChoice = quizGameState.userMinhaChoices[i];
+        const pandaGuessCorrect = q.pandaGuess === q.answer;
+        
+        const div = document.createElement('div');
+        div.className = 'quiz-result-section';
+        div.innerHTML = `
+          <p><strong>${q.question}</strong></p>
+          <p>${quizGameData.panda.name} guessed: <span class="quiz-user-choice ${pandaGuessCorrect ? 'correct' : 'incorrect'}">${q.options[q.pandaGuess].text}</span></p>
+          <p>You selected: ${q.options[userChoice].text}</p>
+          <p class="quiz-actual-answer">Correct answer: ${q.options[q.answer].text}</p>
+          <hr>
+        `;
+        quizElements.minhaAnswersContainer.appendChild(div);
+      });
+    }
+
+    function resetQuizGame() {
+      quizGameState.gamePhase = 'intro';
+      
+      quizElements.minhaResult.style.display = 'none';
+      quizElements.intro.style.display = 'block';
+      
+      quizGameState.currentPandaQuestion = 0;
+      quizGameState.currentMinhaQuestion = 0;
+      quizGameState.pandaScore = 0;
+      quizGameState.minhaScore = 0;
+      quizGameState.userPandaChoices = [];
+      quizGameState.userMinhaChoices = [];
+    }
+
+    function checkFormSubmission() {
+      let formSubmitted = false;
+      const formIframe = document.getElementById('googleForm');
+      
+      try {
+        formIframe.onload = function() {
+          if (!formSubmitted) {
+            console.log("Form loaded or possibly submitted");
+            setTimeout(() => {
+              document.getElementById('formCompleteMessage').style.display = 'block';
+              formSubmitted = true;
+            }, 5000);
+          }
+        };
+      } catch (e) {
+        console.log("Couldn't detect form submission directly due to security restrictions");
+      }
+      
+      setTimeout(() => {
+        if (!formSubmitted) {
+          document.getElementById('formCompleteMessage').style.display = 'block';
+          formSubmitted = true;
+        }
+      }, 30000);
+    }
+
+    initQuizGame();
+  </script>
+</body>
+</html>
